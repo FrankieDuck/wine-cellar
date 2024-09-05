@@ -93,7 +93,7 @@ a {
 
 .top-section {
   width: 100%;
-  height: 50vh;
+  height: 100vh;
   position: relative;
   background: url('/images/corks_gradient.jpg') no-repeat center center;
   background-size: 100% auto;
@@ -119,11 +119,13 @@ a {
   align-items: center;
   flex-direction: column;
   color: white;
+  gap: 60px
 }
 
 .bottom-section {
   width: 100%;
   background: #300106;
+  padding: 100px
 }
 
 .text-container {
@@ -131,7 +133,7 @@ a {
   padding: 30px;
   color: #F9e8c0;
   text-align: center;
-  width: 60%
+  width: 80%
 }
 
 .collections-landing-container {

@@ -5,6 +5,7 @@ import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
 import SearchBar from './SearchBar';
 import TableButtons from './TableButtons';
 import NavHeader from './NavHeader';
+import { Divider } from './LandingPageComponents/Divider';
 
 interface WineListProps {
     type: string;
@@ -44,6 +45,7 @@ const WineList: React.FC<WineListProps> = ({ type }) => {
     return (
         <Box p={2} sx={{ backgroundColor: "#52020A" }}>
             <NavHeader title="COLLECTIONS" />
+            <Divider width="100%" />
             <Box display="flex"
                 justifyContent="space-between"
                 alignItems="center">

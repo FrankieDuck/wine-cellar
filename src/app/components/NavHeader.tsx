@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ViewDayIcon from '@mui/icons-material/ViewDay';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { Box, Typography, IconButton, Tooltip, Menu, MenuItem, } from '@mui/material';
+import { Box, Typography, IconButton, Tooltip, Menu, MenuItem, Divider } from '@mui/material';
 
 interface NavHeaderProps {
     title: string
@@ -22,16 +22,23 @@ const NavHeader = ({ title }: NavHeaderProps) => {
     const handleMenuClick = (setting: string) => {
         handleCloseUserMenu();
 
-        if (setting === 'Collections') {
+        if (setting === 'Example Collections') {
             navigate('/collections');
-        } else if (setting === 'Dashboards') {
+        } else if (setting === 'Example Dashboards') {
             navigate('/dashboards');
         } else if (setting === 'Home') {
             navigate('/');
         }
+        else if (setting === 'My Dashboards') {
+            navigate('/my-dashboards');
+        }
+        else if (setting === 'My Collections') {
+            navigate('/my-collection');
+        }
     };
 
-    const settings = ['Home', 'Dashboards', 'Collections'];
+    const exampleSettings = ['Home', 'Example Dashboards', 'Example Collections'];
+    const mySettings = ['My Dashboards', 'My Collections'];
 
     return (
         <Box pb={10}>
@@ -41,8 +48,11 @@ const NavHeader = ({ title }: NavHeaderProps) => {
                     alignItems: "center",
                     flexDirection: "row",
                     width: '100%',
+                    height: "100px",
+                    paddingTop: "20px"
                 }}
             >
+
                 <Box
                     sx={{
                         position: 'absolute',
@@ -77,13 +87,20 @@ const NavHeader = ({ title }: NavHeaderProps) => {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map((setting) => (
+                        {exampleSettings.map((setting) => (
+                            <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
+                                <Typography textAlign="center">{setting}</Typography>
+                            </MenuItem>
+                        ))}
+                        <Divider />
+                        {mySettings.map((setting) => (
                             <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
                                 <Typography textAlign="center">{setting}</Typography>
                             </MenuItem>
                         ))}
                     </Menu>
                 </Box>
+
             </Box>
         </Box >
     );

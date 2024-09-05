@@ -1,8 +1,13 @@
 import Image from 'next/image';
-import { Box, Typography, IconButton, Paper, Menu, MenuItem, } from '@mui/material';
+import { Box, Typography, IconButton, Paper, MenuItem, } from '@mui/material';
 import NavHeader from './NavHeader';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LandingPageCharts from './LandingPageComponents/LandingPageCharts';
+import { DashboardButton } from './LandingPageComponents/DashboardButton';
+import { CollectionsButton } from './LandingPageComponents/CollectionsButton';
+import { BottomBanner } from './LandingPageComponents/BottomBanner';
+import { Divider } from './LandingPageComponents/Divider';
+import { Link as ScrollLink } from 'react-scroll';
 import '../globals.css';
 
 const Home = () => {
@@ -20,45 +25,83 @@ const Home = () => {
                         <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
                             EVEN FURTHER
                         </Typography>
-                        <IconButton > <KeyboardArrowDownIcon sx={{ color: "#F9e8c0" }} /></IconButton>
+                        <ScrollLink to="chart-section" smooth={true} duration={500}>
+                            <IconButton
+                                sx={{
+                                    '& .MuiSvgIcon-root': {
+                                        fontSize: '88px',
+                                    },
+                                }}
+                            >
+                                <KeyboardArrowDownIcon
+                                    sx={{
+                                        color: "#F9e8c0",
+                                        fontSize: 'inherit',
+                                    }}
+                                />
+                            </IconButton>
+                        </ScrollLink>
                     </Box>
 
                 </Box>
             </Box >
 
             <Box className="bottom-section">
-                <Box className="content-wrapper">
+                <Box className="content-wrapper" id="chart-section">
+                    <Divider />
+                    <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
+                        DYNAMIC CHARTS
+                    </Typography>
                     <LandingPageCharts />
                     <Box className="text-container">
-                        <Typography variant="body1">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </Typography>
+                        <Paper sx={{ backgroundColor: "#310206", p: 1, br: 4, }}>
+                            <Typography variant="h6" sx={{ color: "#F9e8c0" }}>
+                                Easily manage your collection with our custom dashboards. These dashboards feature a variety of graphs and charts,
+                                offering a comprehensive infographic overview of your entire collection. Whether you want a broad overview of your wine collection or insights into specific details like age, region, price, or grape variety, the dashboards can be tailored to your needs.
+                                They update automatically with any changes to your collection, ensuring you always have the most current information.
+                            </Typography>
+                        </Paper>
                     </Box>
-                    <Box className="text-container">
-                        <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-                        </Typography>
-                        <Image src="/images/signature.png"
-                            width={500}
-                            height={200}
-                            alt="signature"
-                        />
-                    </Box>
+
+                    <Divider />
+                    <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
+                        RESPONSIVE TABLES
+                    </Typography>
                     <Box className="collections-landing-container">
-                        <Typography variant="h5" >
-                            Keep track of your stock through a dynamic table. It can be used to show complete stock of all available wines and to pre-order favourites.
+                        <Typography variant="h6" >
+                            Keep track of your stock with a dynamic table that provides a comprehensive view of all available wines.
+                            Use it to monitor your entire inventory and easily pre-order your favorite selections.
                         </Typography>
                         <Image src="/images/collectionsTable.png"
                             width={800}
                             height={500}
                             alt="collections table"
                         />
+                    </Box>
+                    <Divider />
+                    <Typography variant="h5" color="#F9e8c0" >Check out example Dashboards and Collections using the buttons below!</Typography>
+                    <Box sx={{ display: "flex", gap: 10, pt: 4, pb: 2 }}>
+
+                        <DashboardButton />
+                        <CollectionsButton />
+                    </Box>
+                    <Box className="text-container">
+                        <Paper sx={{ backgroundColor: "#310206", p: 1, br: 4, }}>
+                            <Typography variant="h5" sx={{ fontStyle: 'italic', color: "#F9e8c0" }}>
+                                "This app is a game-changer for any wine enthusiast. It not only helps me effortlessly manage my collection but also lets me visualize trends in my wines, whether it's tracking the aging process or analyzing the diversity of grape varieties.
+                                It’s like having a personal assistant that keeps my cellar perfectly organized and up-to-date." - Luan Yitargio
+                            </Typography>
+                            <Image src="/images/signature.png"
+                                width={500}
+                                height={200}
+                                alt="signature"
+                            />
+                        </Paper>
+                    </Box>
+                    <Box sx={{ display: "flex", width: '100%', alignItems: 'center' }}>
+                        <Divider />
+                        <BottomBanner />
+                        <Divider />
                     </Box>
                 </Box>
             </Box >

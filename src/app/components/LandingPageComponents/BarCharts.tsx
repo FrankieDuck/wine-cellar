@@ -3,61 +3,54 @@ import { Box, Typography } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 
 
-const REDWINEDATA2023 = [
+const REDWINEDATA2024 = [
     {
-        red: 111,
-        month: 'Jan',
+        red: 106,
+        variety: 'Merlot',
     },
     {
-        red: 128,
-        month: 'Feb',
+        red: 98,
+        variety: "Nebbiolo",
     },
     {
-        red: 41,
-        month: 'Mar',
+        red: 12,
+        variety: 'Pinot Noir',
     },
     {
-        red: 73,
-        month: 'Apr',
+        red: 53,
+        variety: 'Syrah',
     },
     {
-        red: 44,
-        month: 'May',
-    },
-    {
-        red: 144,
-        month: 'June',
-    },
-    {
-        red: 89,
-        month: 'July',
+        red: 71,
+        variety: 'Zinfandel',
     },
     {
         red: 59,
-        month: 'Aug',
+        variety: 'Malbec',
     },
     {
-        red: 101,
-        month: 'Sept',
+        red: 111,
+        variety: 'Grenache',
     },
     {
-        red: 155,
-        month: 'Oct',
+        red: 168,
+        variety: 'Sangiovese',
     },
     {
-        red: 148,
-        month: 'Nov',
+        red: 160,
+        variety: 'Barbera',
     },
     {
-        red: 225,
-        month: 'Dec',
+        red: 90,
+        variety: 'Tempranillo',
     },
 ];
+
 
 const redChartSetting = {
     xAxis: [
         {
-            label: 'Red Bottles Sold',
+            label: 'Bottles', WineBarCharts
         },
     ],
     width: 700,
@@ -67,15 +60,17 @@ const redChartSetting = {
 
 
 export default function WineBarCharts() {
+
     return (
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography variant='h5' sx={{ color: "#F9e8c0" }}>Red Wine Sales 2024</Typography>
+            <Typography variant='h5' sx={{ color: "#F9e8c0" }}>Red Wines - Grape</Typography>
             <BarChart
-                dataset={REDWINEDATA2023}
-                yAxis={[{ scaleType: 'band', dataKey: 'month', }]}
+                dataset={REDWINEDATA2024}
+                yAxis={[{ scaleType: 'band', dataKey: 'variety', }]}
                 series={[{ dataKey: 'red', }]}
                 layout="horizontal"
                 grid={{ vertical: true }}
+                margin={{ left: 100 }}
                 sx={{
                     "& .MuiChartsAxis-left .MuiChartsAxis-tickLabel": {
                         strokeWidth: "0.4",
