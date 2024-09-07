@@ -22,6 +22,7 @@ connectToDb((err) => {
     }
 });
 
+// Endpoint to fetch all wines from the 'wines' collection
 app.get("/wines", async (req, res) => {
     const page = parseInt(req.query.p) || 0;
     const winesPerPage = 100;
@@ -41,6 +42,7 @@ app.get("/wines", async (req, res) => {
     }
 });
 
+// Endpoint to fetch wines by type from the 'wines' collection
 app.get("/wines/type/:type", async (req, res) => {
     const { type } = req.params;
     const page = parseInt(req.query.p) || 0;
@@ -61,6 +63,7 @@ app.get("/wines/type/:type", async (req, res) => {
     }
 });
 
+// Endpoint to fetch a wine by ID from the 'wines' collection
 app.get("/wines/:id", async (req, res) => {
     if (ObjectId.isValid(req.params.id)) {
         try {
@@ -75,6 +78,7 @@ app.get("/wines/:id", async (req, res) => {
     }
 });
 
+// Endpoint to create a new wine record in the 'wines' collection
 app.post("/wines", async (req, res) => {
     const wine = req.body;
 
@@ -87,6 +91,7 @@ app.post("/wines", async (req, res) => {
     }
 });
 
+// Endpoint to delete a wine by ID from the 'wines' collection
 app.delete('/wines/:id', async (req, res) => {
     if (ObjectId.isValid(req.params.id)) {
         try {
@@ -101,6 +106,7 @@ app.delete('/wines/:id', async (req, res) => {
     }
 });
 
+// Endpoint to update a wine by ID in the 'wines' collection
 app.patch('/wines/:id', async (req, res) => {
     const updates = req.body;
 
@@ -114,5 +120,32 @@ app.patch('/wines/:id', async (req, res) => {
         }
     } else {
         res.status(400).json({ error: 'Invalid ID format' });
+    }
+});
+
+// PERSONAL COLLECTION API
+app.get("/personal_collection", async (req, res) => {
+    try {
+        const wines = await db.collection('personal_collection')
+            .find()
+            .sort({ Country: 1 })
+            .toArray();
+
+        res.status(200).json(wines);
+    } catch (error) {
+        console.error('Error fetching personal collection wines:', error);
+        res.status(500).json({ error: 'Could not fetch data' });
+    }
+});
+
+app.post("/personal_collection", async (req, res) => {
+    const wine = req.body;
+
+    try {
+        const result = await db.collection('personal_collection').insertOne(wine);
+        res.status(201).json(result);
+    } catch (err) {
+        console.error('Error creating wine record:', err);
+        res.status(500).json({ error: "Could not create a new wine record" });
     }
 });

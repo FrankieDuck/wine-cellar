@@ -15,7 +15,6 @@ const WineList: React.FC<WineListProps> = ({ type }) => {
     const [wines, setWines] = useState<WineDataMax[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(0);
-    const [totalPages, setTotalPages] = useState<number>(0);
 
     useEffect(() => {
         const fetchWines = async () => {

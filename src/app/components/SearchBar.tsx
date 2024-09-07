@@ -14,8 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
             component="form"
             noValidate
             autoComplete="off"
-            width={1800}
-            height={50}
+            width={"60%"}
         >
             <TextField
                 id="search-bar"

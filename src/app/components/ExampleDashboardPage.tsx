@@ -5,6 +5,8 @@ import NavHeader from './NavHeader';
 import { Divider } from './LandingPageComponents/Divider';
 import { WineDataMax } from '../types';
 import ExampleWineBarCharts from './DashboardComponents/ExampleWineBarCharts';
+import ExampleWinePieCharts from './DashboardComponents/ExampleWinePieCharts';
+import ExampleGuageCharts from './DashboardComponents/ExampleGuageCharts';
 
 const ExampleDashboardPage = () => {
     const [wines, setWines] = useState<WineDataMax[]>([]);
@@ -125,8 +127,13 @@ const ExampleDashboardPage = () => {
                 <Box sx={{ display: "flex", flexDirection: "row" }}>
                     <ExampleWineBarCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} byAge={ageData} />
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
-                    <ExampleWineBarCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} byAge={ageData} />
+                <Box sx={{ display: "flex", flexDirection: "row", width: "100%", pt: 4 }}>
+                    <Box sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
+                        <ExampleWinePieCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} byAge={ageData} />
+                    </Box>
+                    <Box sx={{ width: "50%", display: "flex", justifyContent: "center" }}>
+                        <ExampleGuageCharts title={exampleSelection} byGrapes={grapeData} />
+                    </Box>
                 </Box>
             </Box>
         </Box >
