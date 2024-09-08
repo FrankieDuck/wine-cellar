@@ -1,8 +1,8 @@
-import { Box, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
-export const CollectionsButton = () => {
-    const navigate = useNavigate();
+export const DashboardButton = () => {
+    const router = useRouter();
 
     return (
         <>
@@ -12,7 +12,7 @@ export const CollectionsButton = () => {
                 },
                 height: "55px",
                 width: "300px"
-            }} onClick={() => navigate('/collections')}>COLLECTIONS</Button >
+            }} onClick={() => router.push('/example-dashboards')}>DASHBOARDS</Button >
         </>
     )
 }

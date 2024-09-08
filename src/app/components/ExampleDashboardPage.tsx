@@ -1,12 +1,12 @@
 import { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Typography, Button } from '@mui/material';
-import NavHeader from './NavHeader';
-import { Divider } from './LandingPageComponents/Divider';
+import NavHeader from '../components/NavHeader';
+import { CustomDivider } from './CustomDivider';
 import { WineDataMax } from '../types';
-import ExampleWineBarCharts from './DashboardComponents/ExampleWineBarCharts';
-import ExampleWinePieCharts from './DashboardComponents/ExampleWinePieCharts';
-import ExampleGuageCharts from './DashboardComponents/ExampleGuageCharts';
+import ExampleWineBarCharts from './ExampleWineBarCharts';
+import ExampleWinePieCharts from './ExampleWinePieCharts';
+import ExampleGuageCharts from './ExampleGuageCharts';
 
 const ExampleDashboardPage = () => {
     const [wines, setWines] = useState<WineDataMax[]>([]);
@@ -91,7 +91,7 @@ const ExampleDashboardPage = () => {
         <Box sx={{ backgroundColor: "#52020A" }} >
             <NavHeader title="DASHBOARDS" />
             <Box sx={{ backgroundColor: "#300106" }} >
-                <Divider width="100%" />
+                <CustomDivider width="100%" />
                 <Box sx={{ padding: "44px", display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center", gap: "30px" }} >
                     <Typography variant="h5" color="#F9e8c0">
                         Keep track of your stock with a dynamic table that provides a comprehensive view of all available wines.

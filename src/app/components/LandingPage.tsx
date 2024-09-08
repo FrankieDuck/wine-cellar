@@ -1,16 +1,17 @@
+'use client'
 import Image from 'next/image';
-import { Box, Typography, IconButton, Paper, MenuItem, } from '@mui/material';
-import NavHeader from './NavHeader';
+import { Box, Typography, IconButton, Paper } from '@mui/material';
+import NavHeader from '../components/NavHeader';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import LandingPageCharts from './LandingPageComponents/LandingPageCharts';
-import { DashboardButton } from './LandingPageComponents/DashboardButton';
-import { CollectionsButton } from './LandingPageComponents/CollectionsButton';
-import { BottomBanner } from './LandingPageComponents/BottomBanner';
-import { Divider } from './LandingPageComponents/Divider';
+import LandingPageCharts from './LandingPageCharts';
+import { DashboardButton } from './DashboardButton';
+import { CollectionsButton } from './CollectionsButton';
+import { BottomBanner } from './BottomBanner';
+import { CustomDivider } from './CustomDivider';
 import { Link as ScrollLink } from 'react-scroll';
-import '../globals.css';
+import '../page.module.css'
 
-const Home = () => {
+export default function LandingPage() {
 
     return (
         <>
@@ -48,7 +49,7 @@ const Home = () => {
 
             <Box className="bottom-section">
                 <Box className="content-wrapper" id="chart-section">
-                    <Divider />
+                    <CustomDivider />
                     <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
                         DYNAMIC CHARTS
                     </Typography>
@@ -63,7 +64,7 @@ const Home = () => {
                         </Paper>
                     </Box>
 
-                    <Divider />
+                    <CustomDivider />
                     <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
                         RESPONSIVE TABLES
                     </Typography>
@@ -78,7 +79,7 @@ const Home = () => {
                             alt="collections table"
                         />
                     </Box>
-                    <Divider />
+                    <CustomDivider />
                     <Typography variant="h5" color="#F9e8c0" >Check out example Dashboards and Collections using the buttons below!</Typography>
                     <Box sx={{ display: "flex", gap: 10, pt: 4, pb: 2 }}>
 
@@ -99,9 +100,9 @@ const Home = () => {
                         </Paper>
                     </Box>
                     <Box sx={{ display: "flex", width: '100%', alignItems: 'center' }}>
-                        <Divider />
+                        <CustomDivider />
                         <BottomBanner />
-                        <Divider />
+                        <CustomDivider />
                     </Box>
                 </Box>
             </Box >
@@ -109,4 +110,3 @@ const Home = () => {
     );
 }
 
-export default Home;

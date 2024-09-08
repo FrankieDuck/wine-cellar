@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { WineDataMax } from '../types';
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import SearchBar from './SearchBar';
-import TableButtons from './TableButtons';
-import NavHeader from './NavHeader';
-import { Divider } from './LandingPageComponents/Divider';
+import SearchBar from '../components/SearchBar';
+import TableButtons from '../components/TableButtons';
+import NavHeader from '../components/NavHeader';
+import { CustomDivider } from './CustomDivider';
 
-interface WineListProps {
+interface ExampleCollectionsPageProps {
     type: string;
 }
 
-const WineList: React.FC<WineListProps> = ({ type }) => {
+const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type }) => {
     const [wines, setWines] = useState<WineDataMax[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(0);
@@ -44,7 +44,7 @@ const WineList: React.FC<WineListProps> = ({ type }) => {
     return (
         <Box p={2} sx={{ backgroundColor: "#52020A" }}>
             <NavHeader title="COLLECTIONS" />
-            <Divider width="100%" />
+            <CustomDivider width="100%" />
             <Box display="flex"
                 justifyContent="space-between"
                 alignItems="center">
@@ -85,7 +85,7 @@ const WineList: React.FC<WineListProps> = ({ type }) => {
                                 <TableCell>{wine.Grape}</TableCell>
                                 <TableCell>{wine.Closure}</TableCell>
                                 <TableCell>{wine.Country}</TableCell>
-                                <TableCell>{wine.Unit}</TableCell>
+                                <TableCell>{wine.Units}</TableCell>
                                 <TableCell>{wine.Characteristics}</TableCell>
                                 <TableCell>{wine.ABV}</TableCell>
                                 <TableCell>{wine.Region}</TableCell>
@@ -101,4 +101,4 @@ const WineList: React.FC<WineListProps> = ({ type }) => {
     );
 };
 
-export default WineList;
+export default ExampleCollectionsPage;

@@ -7,7 +7,7 @@ export interface WineDataMax {
   Grape: string;
   Closure: string;
   Country: string;
-  Unit: number;
+  Units: number;
   Characteristics: string;
   "Per bottle / case / each": string;
   Type: string;
@@ -15,6 +15,7 @@ export interface WineDataMax {
   Region: string;
   Style: string;
   Vintage: number;
+
 }
 
 export interface WineDataMin {
@@ -32,7 +33,7 @@ export const isWine = (wine: any): wine is WineDataMax => {
     typeof wine.Grape === 'string' &&
     typeof wine.Closure === 'string' &&
     typeof wine.Country === 'string' &&
-    typeof wine.Unit === 'number' &&
+    typeof wine.Units === 'number' &&
     typeof wine.Characteristics === 'string' &&
     typeof wine.ABV === 'string' &&
     typeof wine.Region === 'string' &&

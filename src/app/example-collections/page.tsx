@@ -1,14 +1,15 @@
+'use client'
 import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
-import LandingPage from './components/LandingPage';
+import theme from '../theme';
+import ExampleCollectionsPage from '../components/ExampleCollectionsPage';
 
-export default function Dashboards() {
+export default function Collections() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box>
-                <LandingPage />
+                <ExampleCollectionsPage type="Red" />
             </Box>
         </ThemeProvider>
     );

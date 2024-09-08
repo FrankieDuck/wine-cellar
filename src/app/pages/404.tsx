@@ -1,14 +1,13 @@
 import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
-import LandingPage from './components/LandingPage';
+import theme from '../theme';
 
-export default function Dashboards() {
+export default function Custom404() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box>
-                <LandingPage />
+                <div>Page not found</div>
             </Box>
         </ThemeProvider>
     );

@@ -1,14 +1,15 @@
+'use client'
 import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
-import LandingPage from './components/LandingPage';
+import theme from '../theme';
+import { MyDashboardPage } from '../components/MyDashboardPage';
 
-export default function Dashboards() {
+export default function MyDashboards() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box>
-                <LandingPage />
+                <MyDashboardPage />
             </Box>
         </ThemeProvider>
     );

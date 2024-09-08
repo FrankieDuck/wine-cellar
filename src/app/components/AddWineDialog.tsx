@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState, } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,8 +8,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import axios from 'axios';
+import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField, MenuItem } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
+import { WineDataMax } from '@/app/types';
+
+interface AddWineDialogProps {
+    fetchWines: () => Promise<void>;
+    selectedEditWine: WineDataMax | null;
+    setSelectedEditWine: (wine: WineDataMax | null) => void;
+}
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -19,9 +28,9 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AddWineDialog() {
-    const [open, setOpen] = React.useState(false);
-    const [values, setValues] = React.useState({
+export default function AddWineDialog({ fetchWines, selectedEditWine, setSelectedEditWine }: AddWineDialogProps) {
+    const [open, setOpen] = useState(false);
+    const [values, setValues] = useState({
         Title: "",
         Description: "",
         Price: "",
@@ -36,8 +45,16 @@ export default function AddWineDialog() {
         Type: "",
         ABV: "",
         Style: "",
-        Vintage: ""
+        Vintage: "",
+        _id: "",
     });
+
+    useEffect(() => {
+        if (selectedEditWine) {
+            setValues(selectedEditWine);
+            setOpen(true);
+        }
+    }, [selectedEditWine]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -57,24 +74,31 @@ export default function AddWineDialog() {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:5000/personal_collection', values);
-            console.log('Wine added successfully');
+            if (values._id) {
+                const { _id, ...updateData } = values;
+                await axios.patch(`http://localhost:5000/personal_collection/${values._id}`, updateData);
+            } else {
+                await axios.post('http://localhost:5000/personal_collection', values);
+            }
+            fetchWines();
         } catch (error) {
-            console.error('Error adding wine:', error);
+            console.error('Error saving wine:', error);
         }
         setOpen(false);
+        setSelectedEditWine(null);
     };
 
     return (
         <>
             <Button onClick={handleClickOpen} variant="contained"
                 sx={{
-                    backgroundColor: '#F9e8c0', height: "55px", width: '100px', color: "black", '&:hover': {
+                    display: "flex", gap: 2, backgroundColor: '#F9e8c0', height: "55px", width: '160px', color: "black", '&:hover': {
                         backgroundColor: '#e8d1a0',
                     },
 
                 }}>
                 ADD WINE
+                <AddIcon sx={{ fontSize: '20px' }} />
             </Button>
             <Dialog
                 open={open}
@@ -83,7 +107,7 @@ export default function AddWineDialog() {
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{"Add Wine"}</DialogTitle>
+                <DialogTitle>{values._id ? "Edit Wine" : "Add Wine"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Use the form below to add a wine to your collection.
@@ -276,7 +300,7 @@ export default function AddWineDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Add wine</Button>
+                    <Button onClick={handleSubmit}>{values._id ? "Update" : "Add Wine"}</Button>
                 </DialogActions>
             </Dialog>
         </>

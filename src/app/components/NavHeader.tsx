@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ViewDayIcon from '@mui/icons-material/ViewDay';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Box, Typography, IconButton, Tooltip, Menu, MenuItem, Divider } from '@mui/material';
 
 interface NavHeaderProps {
@@ -9,7 +9,7 @@ interface NavHeaderProps {
 
 const NavHeader = ({ title }: NavHeaderProps) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const handleOpenUserMenu = (event: any) => {
         setAnchorElUser(event.currentTarget);
@@ -19,21 +19,23 @@ const NavHeader = ({ title }: NavHeaderProps) => {
         setAnchorElUser(null);
     };
 
-    const handleMenuClick = (setting: string) => {
+    const handleMenuClick = (
+        router: ReturnType<typeof useRouter>,
+        setting: string,
+        handleCloseUserMenu: () => void
+    ) => {
         handleCloseUserMenu();
 
         if (setting === 'Example Collections') {
-            navigate('/collections');
+            router.push('/example-collections');
         } else if (setting === 'Example Dashboards') {
-            navigate('/dashboards');
+            router.push('/example-dashboards');
         } else if (setting === 'Home') {
-            navigate('/');
-        }
-        else if (setting === 'My Dashboards') {
-            navigate('/my-dashboards');
-        }
-        else if (setting === 'My Collections') {
-            navigate('/my-collection');
+            router.push('/');
+        } else if (setting === 'My Dashboards') {
+            router.push('/my-dashboards');
+        } else if (setting === 'My Collections') {
+            router.push('/my-collections');
         }
     };
 
@@ -88,13 +90,13 @@ const NavHeader = ({ title }: NavHeaderProps) => {
                         onClose={handleCloseUserMenu}
                     >
                         {exampleSettings.map((setting) => (
-                            <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
+                            <MenuItem key={setting} onClick={() => handleMenuClick(router, setting, handleCloseUserMenu)}>
                                 <Typography textAlign="center">{setting}</Typography>
                             </MenuItem>
                         ))}
                         <Divider />
                         {mySettings.map((setting) => (
-                            <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
+                            <MenuItem key={setting} onClick={() => handleMenuClick(router, setting, handleCloseUserMenu)}>
                                 <Typography textAlign="center">{setting}</Typography>
                             </MenuItem>
                         ))}

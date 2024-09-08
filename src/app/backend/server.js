@@ -149,3 +149,33 @@ app.post("/personal_collection", async (req, res) => {
         res.status(500).json({ error: "Could not create a new wine record" });
     }
 });
+
+app.delete('/personal_collection/:id', async (req, res) => {
+    if (ObjectId.isValid(req.params.id)) {
+        try {
+            const result = await db.collection('personal_collection').deleteOne({ _id: new ObjectId(req.params.id) });
+            res.status(200).json(result);
+        } catch (error) {
+            console.error('Error deleting wine:', error);
+            res.status(500).json({ error: 'Could not delete wine record' });
+        }
+    } else {
+        res.status(400).json({ error: 'Invalid ID format' });
+    }
+});
+
+app.patch('/personal_collection/:id', async (req, res) => {
+    const updates = req.body;
+
+    if (ObjectId.isValid(req.params.id)) {
+        try {
+            const result = await db.collection('personal_collection').updateOne({ _id: new ObjectId(req.params.id) }, { $set: updates });
+            res.status(200).json(result);
+        } catch (error) {
+            console.error('Error updating wine:', error);
+            res.status(500).json({ error: 'Could not update wine record' });
+        }
+    } else {
+        res.status(400).json({ error: 'Invalid ID format' });
+    }
+});
