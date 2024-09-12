@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { WineDataMax } from '../types';
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { Alert, Snackbar } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import ErrorIcon from '@mui/icons-material/Error';
+import { Box, Table, Button, Tooltip, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import SearchBar from '../components/SearchBar';
 import TableButtons from '../components/TableButtons';
 import NavHeader from '../components/NavHeader';
@@ -15,15 +19,16 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
     const [wines, setWines] = useState<WineDataMax[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(0);
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
 
     useEffect(() => {
         const fetchWines = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/wines/type/${type}?p=${currentPage}`);
-                // Filter the response data to only include WineDataMax
                 const maxWines: WineDataMax[] = response.data.filter((wine: any) => wine.Grape !== undefined);
                 setWines(maxWines);
-                // setTotalPages(totalPageCount); // You might need another endpoint or response to get this
             } catch (error) {
                 console.error("Could not fetch wines. Please try again later.");
             }
@@ -36,10 +41,30 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
         setSearchQuery(event.target.value);
     };
 
-    // Filter wines based on search query
     const filteredWines = wines.filter(wine =>
         wine.Title.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    const handleAddToCollection = async (wine: WineDataMax) => {
+        try {
+            await axios.post('http://localhost:5000/personal_collection', wine);
+            setAlertMessage('Wine successfully added to your collection.');
+            setAlertSeverity('success');
+            setAlertOpen(true);
+        } catch (error) {
+            console.error('Error adding wine to collection:', error);
+            setAlertMessage('Failed to add wine to your collection. Please try again.');
+            setAlertSeverity('error');
+            setAlertOpen(true);
+        }
+    };
+
+    const handleAlertClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setAlertOpen(false);
+    };
 
     return (
         <Box p={2} sx={{ backgroundColor: "#52020A" }}>
@@ -91,12 +116,35 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
                                 <TableCell>{wine.Region}</TableCell>
                                 <TableCell>{wine.Style}</TableCell>
                                 <TableCell>{wine.Vintage}</TableCell>
+                                <TableCell>
+                                    <Tooltip title="Add this wine directly to your own collections">
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            startIcon={<AddIcon />}
+                                            style={{ marginBottom: 8, width: "110px" }}
+                                            onClick={() => handleAddToCollection(wine)}
+                                        >
+                                            Add
+                                        </Button>
+                                    </Tooltip>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
             <TableButtons currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Snackbar open={alertOpen} autoHideDuration={2000} onClose={handleAlertClose}>
+                <Alert
+                    onClose={handleAlertClose}
+                    severity={alertSeverity}
+                    variant="filled"
+                    icon={alertSeverity === 'success' ? <CheckIcon fontSize="inherit" /> : <ErrorIcon fontSize="inherit" />}
+                >
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </Box >
     );
 };
