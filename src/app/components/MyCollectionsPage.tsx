@@ -76,6 +76,7 @@ export const MyCollectionsPage = () => {
                                 <TableCell>Closure</TableCell>
                                 <TableCell>Country</TableCell>
                                 <TableCell>Units</TableCell>
+                                <TableCell>Quantity</TableCell>
                                 <TableCell>Characteristics</TableCell>
                                 <TableCell>ABV</TableCell>
                                 <TableCell>Region</TableCell>
@@ -97,6 +98,7 @@ export const MyCollectionsPage = () => {
                                     <TableCell>{wine.Closure}</TableCell>
                                     <TableCell>{wine.Country}</TableCell>
                                     <TableCell>{wine.Units}</TableCell>
+                                    <TableCell>{wine.Quantity}</TableCell>
                                     <TableCell>{wine.Characteristics}</TableCell>
                                     <TableCell>{wine.ABV}</TableCell>
                                     <TableCell>{wine.Region}</TableCell>
@@ -108,7 +110,11 @@ export const MyCollectionsPage = () => {
                                                 variant="contained"
                                                 color="primary"
                                                 startIcon={<EditIcon />}
-                                                style={{ marginBottom: 8, width: "110px" }}
+                                                sx={{
+                                                    marginBottom: 1, width: "110px", backgroundColor: '#F9e8c0', color: "black", '&:hover': {
+                                                        backgroundColor: '#e8d1a0',
+                                                    },
+                                                }}
                                                 onClick={() => handleEdit(wine)}
                                             >
                                                 Edit
@@ -116,6 +122,11 @@ export const MyCollectionsPage = () => {
                                             <Button
                                                 variant="contained"
                                                 color="secondary"
+                                                sx={{
+                                                    backgroundColor: '#a82f3b', color: "black", '&:hover': {
+                                                        backgroundColor: '#7B0323',
+                                                    },
+                                                }}
                                                 startIcon={<DeleteIcon />}
                                                 onClick={() => handleDelete(wine._id)}
                                             >

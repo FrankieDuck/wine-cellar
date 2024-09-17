@@ -11,13 +11,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { BarChart } from '@mui/x-charts/BarChart'; // Import BarChart
-import { Gauge } from '@mui/x-charts/Gauge'; // Import Gauge
+import { BarChart } from '@mui/x-charts/BarChart';
+import { Gauge } from '@mui/x-charts/Gauge';
 import { Typography, Box } from '@mui/material';
 
 interface ChartData {
     type: string;
     dataField: string;
+    wineType: string;
     data: Array<{ id: number; value: number; label: string }>;
 }
 
@@ -31,6 +32,7 @@ interface AddChartDialogProps {
 const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, onAddChart }) => {
     const [chartType, setChartType] = useState<string>('Pie');
     const [dataField, setDataField] = useState<string>('');
+    const [wineType, setWineType] = useState<string>('All');
 
     const handleChartTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChartType(event.target.value);
@@ -40,11 +42,17 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
         setDataField(event.target.value);
     };
 
+    const handleWineTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setWineType(event.target.value);
+    };
+
     const prepareChartData = useMemo(() => {
         if (!dataField) return [];
 
+        const filteredWines = wineType === 'All' ? wines : wines.filter(wine => wine.Type === wineType);
+        console.log("the filteredWines", filteredWines)
         const counts: { [key: string]: number } = {};
-        wines.forEach(wine => {
+        filteredWines.forEach(wine => {
             const value = wine[dataField as keyof WineDataMax];
             if (value) {
                 counts[value] = (counts[value] || 0) + 1;
@@ -56,13 +64,14 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
             value,
             label,
         }));
-    }, [wines, dataField]);
+    }, [wines, dataField, wineType]);
 
     const handleAddChart = () => {
         if (chartType && dataField) {
             onAddChart({
                 type: chartType,
                 dataField: dataField,
+                wineType: wineType,
                 data: prepareChartData
             });
         }
@@ -71,10 +80,26 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
     const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
 
     return (
-        <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-            <DialogTitle>Add New Chart</DialogTitle>
+        <Dialog open={open} onClose={onClose} maxWidth="md">
+            <DialogTitle>
+                <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                    Add New Chart
+                </Box>
+            </DialogTitle>
             <DialogContent>
-                <FormControl component="fieldset">
+                {/* Wine Type Selection */}
+                <FormControl component="fieldset" fullWidth margin="normal">
+                    <FormLabel component="legend">Wine Type</FormLabel>
+                    <RadioGroup row value={wineType} onChange={handleWineTypeChange}>
+                        <FormControlLabel value="All" control={<Radio />} label="All Types" />
+                        <FormControlLabel value="Red" control={<Radio />} label="Red" />
+                        <FormControlLabel value="White" control={<Radio />} label="White" />
+                        <FormControlLabel value="Rosé" control={<Radio />} label="Rosé" />
+                    </RadioGroup>
+                </FormControl>
+
+                {/* Chart Type Selection */}
+                <FormControl component="fieldset" fullWidth margin="normal">
                     <FormLabel component="legend">Chart Type</FormLabel>
                     <RadioGroup row value={chartType} onChange={handleChartTypeChange}>
                         <FormControlLabel value="Pie" control={<Radio />} label="Pie" />
@@ -83,7 +108,8 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
                     </RadioGroup>
                 </FormControl>
 
-                <FormControl component="fieldset" style={{ marginTop: 20 }}>
+                {/* Data Field Selection */}
+                <FormControl component="fieldset" fullWidth margin="normal">
                     <FormLabel component="legend">Data Field</FormLabel>
                     <RadioGroup row value={dataField} onChange={handleDataFieldChange}>
                         <FormControlLabel value="Vintage" control={<Radio />} label="Vintage" />
@@ -93,67 +119,82 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
                     </RadioGroup>
                 </FormControl>
 
-                {chartType === 'Pie' && dataField && (
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant='h6' sx={{ color: "#F9e8c0" }}>
-                            Wine Distribution by {dataField}
+                {/* Chart Preview */}
+                {chartType && dataField && (
+                    <Box sx={{ mt: 4, border: '1px solid #ccc', borderRadius: '4px', padding: '16px', backgroundColor: "#52020A" }}>
+                        <Typography variant='h6' sx={{ color: "#F9e8c0", mb: 2, textAlign: 'center' }}>
+                            Preview: {wineType === 'All' ? 'All' : wineType} Wine Distribution by {dataField}
                         </Typography>
-                        <PieChart
-                            series={[{ data: prepareChartData }]}
-                            width={400}
-                            height={200}
-                            colors={colors}
-                            margin={{ top: 10, bottom: 0, left: 0, right: 0 }}
-                            slotProps={{ legend: { hidden: true } }}
-                        />
-                    </Box>
-                )}
 
-                {chartType === 'Bar' && dataField && (
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant='h6' sx={{ color: "#F9e8c0" }}>
-                            Wine Distribution by {dataField}
-                        </Typography>
-                        <BarChart
-                            dataset={prepareChartData}
-                            xAxis={[{ dataKey: 'label' }]}
-                            yAxis={[{ scaleType: 'linear' }]}
-                            series={[{ dataKey: 'value' }]}
-                            width={400}
-                            height={200}
-                            colors={colors}
-                            margin={{ top: 10, bottom: 0, left: 0, right: 0 }}
-                        />
-                    </Box>
-                )}
+                        {chartType && dataField && (
+                            <Box sx={{ mt: 4, border: '1px solid #ccc', borderRadius: '4px', padding: '16px', backgroundColor: "#52020A" }}>
+                                <Typography variant='h6' sx={{ color: "#F9e8c0", mb: 2, textAlign: 'center' }}>
+                                    Preview: {wineType === 'All' ? 'All' : wineType} Wine Distribution by {dataField}
+                                </Typography>
 
-                {chartType === 'Gauge' && dataField && (
-                    <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
-                        {prepareChartData.map((data) => (
-                            <Box key={data.id} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                <Typography variant='h6' sx={{ color: "#F9e8c0" }}>{data.label}</Typography>
-                                <Gauge
-                                    width={100}
-                                    height={100}
-                                    value={data.value}
-                                    sx={{
-                                        '& .MuiCharts-valueText': {
-                                            fontSize: 20,
-                                            fill: '#7B0323',
-                                        },
-                                        '& .MuiCharts-valueArc': {
-                                            fill: colors[data.id % colors.length],
-                                        },
-                                    }}
-                                />
+                                {chartType === 'Pie' && (
+                                    <PieChart
+                                        series={[{ data: prepareChartData }]}
+                                        width={400}
+                                        height={200}
+                                        colors={colors}
+                                        margin={{ top: 10, bottom: 0, left: 0, right: 0 }}
+                                        slotProps={{ legend: { hidden: true } }}
+                                    />
+                                )}
+
+                                {chartType === 'Bar' && (
+                                    <BarChart
+                                        dataset={prepareChartData}
+                                        xAxis={[{ scaleType: 'band', dataKey: 'label' }]}
+                                        yAxis={[{ scaleType: 'linear' }]}
+                                        series={[{ dataKey: 'value', type: 'bar' }]}
+                                        width={400}
+                                        height={200}
+                                        colors={colors}
+                                        margin={{ top: 10, bottom: 0, left: 0, right: 0 }}
+                                    />
+                                )}
+
+                                {chartType === 'Gauge' && (
+                                    <Box sx={{ display: 'flex', justifyContent: 'space-around', }}>
+                                        {prepareChartData.map((data) => (
+                                            <Box key={data.id} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                <Typography variant='subtitle1' sx={{ color: "#F9e8c0" }}>{data.label}</Typography>
+                                                <Gauge
+                                                    width={100}
+                                                    height={100}
+                                                    value={data.value}
+                                                    sx={{
+                                                        '& .MuiCharts-valueText': {
+                                                            fontSize: 20,
+                                                            fill: '#7B0323',
+                                                        },
+                                                        '& .MuiCharts-valueArc': {
+                                                            fill: colors[data.id % colors.length],
+                                                        },
+                                                    }}
+                                                />
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                )}
                             </Box>
-                        ))}
+                        )}
                     </Box>
                 )}
             </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={handleAddChart} color="primary">Add Chart</Button>
+            <DialogActions sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <Button onClick={onClose} sx={{
+                    display: "flex", gap: 2, backgroundColor: '#a82f3b', height: "55px", width: '160px', color: "black", '&:hover': {
+                        backgroundColor: '#7B0323',
+                    },
+                }}>Cancel</Button>
+                <Button onClick={handleAddChart} sx={{
+                    display: "flex", gap: 2, backgroundColor: '#a82f3b', height: "55px", width: '160px', color: "black", '&:hover': {
+                        backgroundColor: '#7B0323',
+                    },
+                }}>Add Chart</Button>
             </DialogActions>
         </Dialog>
     );

@@ -26,7 +26,7 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
     useEffect(() => {
         const fetchWines = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/wines/type/${type}?p=${currentPage}`);
+                const response = await axios.get(`http://localhost:5000/wines/type/Rosé?p=${currentPage}`);
                 const maxWines: WineDataMax[] = response.data.filter((wine: any) => wine.Grape !== undefined);
                 setWines(maxWines);
             } catch (error) {
@@ -122,7 +122,11 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
                                             variant="contained"
                                             color="primary"
                                             startIcon={<AddIcon />}
-                                            style={{ marginBottom: 8, width: "110px" }}
+                                            sx={{
+                                                width: "80px", backgroundColor: '#F9e8c0', color: "black", '&:hover': {
+                                                    backgroundColor: '#e8d1a0',
+                                                },
+                                            }}
                                             onClick={() => handleAddToCollection(wine)}
                                         >
                                             Add

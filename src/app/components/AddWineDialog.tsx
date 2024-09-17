@@ -40,6 +40,7 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
         Closure: "",
         Country: "",
         Units: 10,
+        Quantity: 1,
         Characteristics: "",
         PerBottleCaseEach: "Per Bottle",
         Type: "",
@@ -216,6 +217,18 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
                                 fullWidth
                                 variant="outlined"
                                 value={values.Units}
+                                onChange={handleChange}
+                                margin="dense"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                name="Quantity"
+                                label="Quantity"
+                                type="number"
+                                fullWidth
+                                variant="outlined"
+                                value={values.Quantity}
                                 onChange={handleChange}
                                 margin="dense"
                             />

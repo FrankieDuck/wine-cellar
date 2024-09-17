@@ -3,6 +3,8 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import NavHeader from './NavHeader';
 import { CustomDivider } from './CustomDivider';
 import { WineDataMax } from '../types';
@@ -49,13 +51,21 @@ export const MyDashboardPage = () => {
         handleCloseDialog();
     };
 
+    const handleDeleteChart = (indexToDelete: number) => {
+        setCharts(charts.filter((_, index) => index !== indexToDelete));
+    };
+
     return (
         <Box sx={{ backgroundColor: "#52020A" }} >
             <NavHeader title="DASHBOARDS" />
             <Box sx={{ backgroundColor: "#300106" }} >
                 <CustomDivider width="100%" />
-                <Box display="flex" flexDirection="column" alignItems="center" pt={4}>
-                    <Button variant="contained" color="primary" onClick={handleOpenDialog}>
+                <Box display="flex" flexDirection="column" alignItems="center" pt={4} height={'80vh'}>
+                    <Button variant="contained" color="primary" onClick={handleOpenDialog} sx={{
+                        display: "flex", gap: 2, backgroundColor: '#F9e8c0', height: "55px", width: '160px', color: "black", '&:hover': {
+                            backgroundColor: '#e8d1a0',
+                        },
+                    }}>
                         Add New Chart
                     </Button>
                     <AddChartDialog
@@ -65,12 +75,23 @@ export const MyDashboardPage = () => {
                         onAddChart={handleAddChart}
                     />
                 </Box>
-                <Box sx={{ p: 2 }}>
+                <Box sx={{ p: 2 }} >
                     <Grid container spacing={2}>
                         {charts.map((chart, index) => (
                             <Grid item xs={12} sm={6} md={4} key={index}>
-                                <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-                                    <Typography variant="h6" gutterBottom>
+                                <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1, backgroundColor: '#52020A', position: 'relative' }}>
+                                    <IconButton
+                                        onClick={() => handleDeleteChart(index)}
+                                        sx={{
+                                            position: 'absolute',
+                                            right: 8,
+                                            top: 8,
+                                            color: '#F9e8c0'
+                                        }}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    <Typography variant="h6" gutterBottom color={"#F9e8c0"}>
                                         Wine Distribution by {chart.dataField}
                                     </Typography>
                                     {chart.type === 'Pie' && (
@@ -85,18 +106,18 @@ export const MyDashboardPage = () => {
                                     {chart.type === 'Bar' && (
                                         <BarChart
                                             dataset={chart.data}
-                                            xAxis={[{ dataKey: 'label' }]}
+                                            xAxis={[{ scaleType: 'band', dataKey: 'label' }]}
                                             yAxis={[{ scaleType: 'linear' }]}
-                                            series={[{ dataKey: 'value' }]}
+                                            series={[{ dataKey: 'value', type: 'bar' }]}
                                             width={300}
                                             height={200}
                                             margin={{ top: 10, bottom: 0, left: 0, right: 0 }}
                                         />
                                     )}
                                     {chart.type === 'Gauge' && (
-                                        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+                                        <Box sx={{ display: 'flex', justifyContent: 'space-around', }}>
                                             {chart.data.map((data) => (
-                                                <Box key={data.id} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                <Box key={data.id} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
                                                     <Typography variant='h6' sx={{ color: "#F9e8c0" }}>{data.label}</Typography>
                                                     <Gauge
                                                         width={100}

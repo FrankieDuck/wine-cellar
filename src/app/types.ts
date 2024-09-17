@@ -8,6 +8,7 @@ export interface WineDataMax {
   Closure: string;
   Country: string;
   Units: number;
+  Quantity: number;
   Characteristics: string;
   "Per bottle / case / each": string;
   Type: string;
