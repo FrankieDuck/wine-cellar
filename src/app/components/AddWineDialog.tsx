@@ -11,6 +11,7 @@ import axios from 'axios';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField, MenuItem } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
+import { v4 as uuidv4 } from 'uuid';
 import { WineDataMax } from '@/app/types';
 
 interface AddWineDialogProps {
@@ -46,7 +47,7 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
         Type: "",
         ABV: "",
         Style: "",
-        Vintage: "",
+        Vintage: 2000,
         _id: "",
     });
 
@@ -54,8 +55,11 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
         if (selectedEditWine) {
             setValues(selectedEditWine);
             setOpen(true);
+        } else {
+            resetForm();
         }
     }, [selectedEditWine]);
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -63,6 +67,8 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
 
     const handleClose = () => {
         setOpen(false);
+        resetForm();
+        setSelectedEditWine(null);
     };
 
     const handleChange = (event: any) => {
@@ -76,30 +82,67 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
     const handleSubmit = async () => {
         try {
             if (values._id) {
+                // Updating existing wine
                 const { _id, ...updateData } = values;
-                await axios.patch(`http://localhost:5000/personal_collection/${values._id}`, updateData);
+                const response = await axios.patch(`http://localhost:5000/personal_collection/${values._id}`, updateData);
+                if (response.status === 200) {
+                    console.log('Wine updated successfully');
+                } else {
+                    console.error('Failed to update wine', response);
+                }
             } else {
-                await axios.post('http://localhost:5000/personal_collection', values);
+                // Adding new wine
+                const newWine = { ...values, _id: uuidv4() };
+                const response = await axios.post('http://localhost:5000/personal_collection', newWine);
+                if (response.status === 201) {
+                    console.log('Wine added successfully');
+                } else {
+                    console.error('Failed to add wine', response);
+                }
             }
             fetchWines();
+            setOpen(false);
+            setSelectedEditWine(null);
+            resetForm();
         } catch (error) {
             console.error('Error saving wine:', error);
         }
-        setOpen(false);
-        setSelectedEditWine(null);
     };
+
+    const resetForm = () => {
+        setValues({
+            Title: "",
+            Description: "",
+            Price: "",
+            Capacity: "75CL",
+            Grape: "",
+            SecondaryGrapeVarieties: "",
+            Closure: "",
+            Country: "",
+            Units: 10,
+            Quantity: 1,
+            Characteristics: "",
+            PerBottleCaseEach: "Per Bottle",
+            Type: "",
+            ABV: "",
+            Style: "",
+            Vintage: 0,
+            _id: "",
+        });
+    };
+
 
     return (
         <>
             <Button onClick={handleClickOpen} variant="contained"
+                startIcon={<AddIcon sx={{ fontSize: '20px' }} />}
                 sx={{
-                    display: "flex", gap: 2, backgroundColor: '#F9e8c0', height: "55px", width: '160px', color: "black", '&:hover': {
+                    display: "flex", gap: 1, backgroundColor: '#F9e8c0', height: "55px", width: '160px', color: "black", '&:hover': {
                         backgroundColor: '#e8d1a0',
                     },
 
                 }}>
                 ADD WINE
-                <AddIcon sx={{ fontSize: '20px' }} />
             </Button>
             <Dialog
                 open={open}

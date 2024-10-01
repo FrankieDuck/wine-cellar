@@ -50,7 +50,6 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
         if (!dataField) return [];
 
         const filteredWines = wineType === 'All' ? wines : wines.filter(wine => wine.Type === wineType);
-        console.log("the filteredWines", filteredWines)
         const counts: { [key: string]: number } = {};
         filteredWines.forEach(wine => {
             const value = wine[dataField as keyof WineDataMax];
@@ -122,9 +121,6 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
                 {/* Chart Preview */}
                 {chartType && dataField && (
                     <Box sx={{ mt: 4, border: '1px solid #ccc', borderRadius: '4px', padding: '16px', backgroundColor: "#52020A" }}>
-                        <Typography variant='h6' sx={{ color: "#F9e8c0", mb: 2, textAlign: 'center' }}>
-                            Preview: {wineType === 'All' ? 'All' : wineType} Wine Distribution by {dataField}
-                        </Typography>
 
                         {chartType && dataField && (
                             <Box sx={{ mt: 4, border: '1px solid #ccc', borderRadius: '4px', padding: '16px', backgroundColor: "#52020A" }}>

@@ -16,7 +16,8 @@ export interface WineDataMax {
   Region: string;
   Style: string;
   Vintage: number;
-
+  SecondaryGrapeVarieties: string;
+  PerBottleCaseEach: string;
 }
 
 export interface WineDataMin {

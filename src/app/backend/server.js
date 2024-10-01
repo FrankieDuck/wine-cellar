@@ -141,6 +141,10 @@ app.get("/personal_collection", async (req, res) => {
 app.post("/personal_collection", async (req, res) => {
     const wine = req.body;
 
+    if (!wine._id) {
+        return res.status(400).json({ error: "Wine must have an _id" });
+    }
+
     try {
         const result = await db.collection('personal_collection').insertOne(wine);
         res.status(201).json(result);
@@ -151,31 +155,43 @@ app.post("/personal_collection", async (req, res) => {
 });
 
 app.delete('/personal_collection/:id', async (req, res) => {
-    if (ObjectId.isValid(req.params.id)) {
-        try {
-            const result = await db.collection('personal_collection').deleteOne({ _id: new ObjectId(req.params.id) });
+    const id = req.params.id;
+
+    try {
+        const result = await db.collection('personal_collection').deleteOne({ _id: id });
+
+        if (result.deletedCount === 0) {
+            console.log(`No document found with ID: ${id}`);
+            res.status(404).json({ error: 'Wine not found' });
+        } else {
             res.status(200).json(result);
-        } catch (error) {
-            console.error('Error deleting wine:', error);
-            res.status(500).json({ error: 'Could not delete wine record' });
         }
-    } else {
-        res.status(400).json({ error: 'Invalid ID format' });
+    } catch (error) {
+        console.error(`Error deleting wine with ID ${id}:`, error);
+        res.status(500).json({ error: 'Could not delete wine record' });
     }
 });
 
 app.patch('/personal_collection/:id', async (req, res) => {
+    const id = req.params.id;
     const updates = req.body;
 
-    if (ObjectId.isValid(req.params.id)) {
-        try {
-            const result = await db.collection('personal_collection').updateOne({ _id: new ObjectId(req.params.id) }, { $set: updates });
+    try {
+        const result = await db.collection('personal_collection').updateOne(
+            { _id: id },
+            { $set: updates }
+        );
+
+        if (result.matchedCount === 0) {
+            console.log(`No document found with ID: ${id}`);
+            res.status(404).json({ error: 'Wine not found' });
+        } else if (result.modifiedCount === 0) {
+            res.status(200).json({ message: 'No changes were made' });
+        } else {
             res.status(200).json(result);
-        } catch (error) {
-            console.error('Error updating wine:', error);
-            res.status(500).json({ error: 'Could not update wine record' });
         }
-    } else {
-        res.status(400).json({ error: 'Invalid ID format' });
+    } catch (error) {
+        console.error(`Error updating wine with ID ${id}:`, error);
+        res.status(500).json({ error: 'Could not update wine record' });
     }
 });
