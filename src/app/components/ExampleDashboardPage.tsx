@@ -101,24 +101,15 @@ const ExampleDashboardPage = () => {
                         Use the pre-set buttons below to see different example of charts based on grape variety.
                     </Typography>
                     <Box display={'flex'} gap={10}>
-                        <Button sx={{
-                            backgroundColor: '#52020A', color: "black", '&:hover': {
-                                backgroundColor: '#52020A',
-                            },
+                        <Button variant="red" sx={{
                             height: "55px",
                             width: "300px"
                         }} onClick={() => setExampleSelection("Red")}>Red</Button>
-                        <Button sx={{
-                            backgroundColor: '#e8d1a0', color: "black", '&:hover': {
-                                backgroundColor: '#e8d1a0',
-                            },
+                        <Button variant="white" sx={{
                             height: "55px",
                             width: "300px"
                         }} onClick={() => setExampleSelection("White")}>White</Button>
-                        <Button sx={{
-                            backgroundColor: '#FFB9B9', color: "black", '&:hover': {
-                                backgroundColor: '#FFB9B9',
-                            },
+                        <Button variant="rose" sx={{
                             height: "55px",
                             width: "300px"
                         }} onClick={() => setExampleSelection("Rosé")}>Rosé</Button>

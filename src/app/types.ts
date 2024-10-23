@@ -5,20 +5,20 @@ export interface WineDataMax {
   Price: string;
   Capacity: string;
   Grape: string;
+  SecondaryGrapeVarieties: string;
   Closure: string;
   Country: string;
   Units: number;
   Quantity: number;
   Characteristics: string;
-  "Per bottle / case / each": string;
+  PerBottleCaseEach: string;
   Type: string;
   ABV: string;
   Region: string;
   Style: string;
   Vintage: number;
-  SecondaryGrapeVarieties: string;
-  PerBottleCaseEach: string;
 }
+
 
 export interface WineDataMin {
   _id: string;

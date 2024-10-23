@@ -50,12 +50,12 @@ export default function LandingPage() {
             <Box className="bottom-section">
                 <Box className="content-wrapper" id="chart-section">
                     <CustomDivider />
-                    <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
+                    <Typography variant="h2" className="home-titles-text">
                         DYNAMIC CHARTS
                     </Typography>
                     <LandingPageCharts />
                     <Box className="text-container">
-                        <Paper sx={{ backgroundColor: "#310206", p: 1, br: 4, }}>
+                        <Paper className="home-paper">
                             <Typography variant="h6" sx={{ color: "#F9e8c0" }}>
                                 Easily manage your collection with our custom dashboards. These dashboards feature a variety of graphs and charts,
                                 offering a comprehensive infographic overview of your entire collection. Whether you want a broad overview of your wine collection or insights into specific details like age, region, price, or grape variety, the dashboards can be tailored to your needs.
@@ -65,7 +65,7 @@ export default function LandingPage() {
                     </Box>
 
                     <CustomDivider />
-                    <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
+                    <Typography variant="h2" className="home-titles-text">
                         RESPONSIVE TABLES
                     </Typography>
                     <Box className="collections-landing-container">
@@ -76,7 +76,13 @@ export default function LandingPage() {
                         <Image src="/images/collectionsTable.png"
                             width={800}
                             height={500}
-                            alt="collections table"
+                            sizes="(max-width: 768px) 100vw, 800px"
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                objectFit: 'contain'
+                            }}
+                            alt="Collections table showing wine inventory"
                         />
                     </Box>
                     <CustomDivider />
@@ -87,8 +93,8 @@ export default function LandingPage() {
                         <CollectionsButton />
                     </Box>
                     <Box className="text-container">
-                        <Paper sx={{ backgroundColor: "#310206", p: 1, br: 4, }}>
-                            <Typography variant="h5" sx={{ fontStyle: 'italic', color: "#F9e8c0" }}>
+                        <Paper className="home-paper">
+                            <Typography variant="h5" fontStyle={'italic'} color={"#F9e8c0"} >
                                 "This app is a game-changer for any wine enthusiast. It not only helps me effortlessly manage my collection but also lets me visualize trends in my wines, whether it's tracking the aging process or analyzing the diversity of grape varieties.
                                 It’s like having a personal assistant that keeps my cellar perfectly organized and up-to-date." - Luan Yitargio
                             </Typography>
@@ -99,7 +105,7 @@ export default function LandingPage() {
                             />
                         </Paper>
                     </Box>
-                    <Box sx={{ display: "flex", width: '100%', alignItems: 'center' }}>
+                    <Box className="add-chart-dialog">
                         <CustomDivider />
                         <BottomBanner />
                         <CustomDivider />

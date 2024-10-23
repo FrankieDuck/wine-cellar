@@ -6,10 +6,7 @@ export const DashboardButton = () => {
 
     return (
         <>
-            <Button sx={{
-                backgroundColor: '#F9e8c0', color: "black", '&:hover': {
-                    backgroundColor: '#e8d1a0',
-                },
+            <Button variant="white" sx={{
                 height: "55px",
                 width: "300px"
             }} onClick={() => router.push('/example-dashboards')}>DASHBOARDS</Button >

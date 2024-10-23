@@ -61,10 +61,8 @@ export const MyDashboardPage = () => {
             <Box sx={{ backgroundColor: "#300106", height: '83vh' }} >
                 <CustomDivider width="100%" />
                 <Box display="flex" flexDirection="column" alignItems="center" pt={4} >
-                    <Button variant="contained" color="primary" onClick={handleOpenDialog} sx={{
-                        display: "flex", gap: 2, backgroundColor: '#F9e8c0', height: "55px", width: '160px', color: "black", '&:hover': {
-                            backgroundColor: '#e8d1a0',
-                        },
+                    <Button variant="white" onClick={handleOpenDialog} sx={{
+                        height: "55px", width: '160px',
                     }}>
                         Add New Chart
                     </Button>

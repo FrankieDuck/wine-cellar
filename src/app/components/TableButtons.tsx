@@ -17,27 +17,15 @@ const TableButtons: React.FC<TableButtonsProps> = ({ currentPage, setCurrentPage
     return (
         <Stack direction="row" spacing={2} justifyContent="flex-end" mt={2} mb={2}>
             <Button
-                variant="contained"
+                variant="white"
                 onClick={handlePreviousPage}
                 disabled={currentPage === 0}
-                sx={{
-                    backgroundColor: '#F9e8c0', color: "black", '&:hover': {
-                        backgroundColor: '#e8d1a0',
-                    },
-                    height: "55px"
-                }}
             >
                 Previous Page
             </Button>
             <Button
-                variant="contained"
+                variant="white"
                 onClick={handleNextPage}
-                sx={{
-                    backgroundColor: '#F9e8c0', color: "black", '&:hover': {
-                        backgroundColor: '#e8d1a0',
-                    },
-
-                }}
             >
                 Next Page
             </Button>

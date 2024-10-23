@@ -81,7 +81,7 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
     return (
         <Dialog open={open} onClose={onClose} maxWidth="md">
             <DialogTitle>
-                <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <Box className="add-chart-dialog">
                     Add New Chart
                 </Box>
             </DialogTitle>
@@ -120,10 +120,9 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
 
                 {/* Chart Preview */}
                 {chartType && dataField && (
-                    <Box sx={{ mt: 4, border: '1px solid #ccc', borderRadius: '4px', padding: '16px', backgroundColor: "#52020A" }}>
-
+                    <Box className="chart-preview-container">
                         {chartType && dataField && (
-                            <Box sx={{ mt: 4, border: '1px solid #ccc', borderRadius: '4px', padding: '16px', backgroundColor: "#52020A" }}>
+                            <Box className="chart-preview-container">
                                 <Typography variant='h6' sx={{ color: "#F9e8c0", mb: 2, textAlign: 'center' }}>
                                     Preview: {wineType === 'All' ? 'All' : wineType} Wine Distribution by {dataField}
                                 </Typography>
@@ -181,16 +180,8 @@ const AddChartDialog: React.FC<AddChartDialogProps> = ({ open, onClose, wines, o
                 )}
             </DialogContent>
             <DialogActions sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                <Button onClick={onClose} sx={{
-                    display: "flex", gap: 2, backgroundColor: '#a82f3b', height: "55px", width: '160px', color: "black", '&:hover': {
-                        backgroundColor: '#7B0323',
-                    },
-                }}>Cancel</Button>
-                <Button onClick={handleAddChart} sx={{
-                    display: "flex", gap: 2, backgroundColor: '#a82f3b', height: "55px", width: '160px', color: "black", '&:hover': {
-                        backgroundColor: '#7B0323',
-                    },
-                }}>Add Chart</Button>
+                <Button onClick={onClose} variant="red">Cancel</Button>
+                <Button onClick={handleAddChart} variant="red">Add Chart</Button>
             </DialogActions>
         </Dialog>
     );

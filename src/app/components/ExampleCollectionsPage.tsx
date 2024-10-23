@@ -119,13 +119,10 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
                                 <TableCell>
                                     <Tooltip title="Add this wine directly to your own collections">
                                         <Button
-                                            variant="contained"
-                                            color="primary"
-                                            startIcon={<AddIcon />}
+                                            variant="white"
+                                            endIcon={<AddIcon />}
                                             sx={{
-                                                width: "80px", backgroundColor: '#F9e8c0', color: "black", '&:hover': {
-                                                    backgroundColor: '#e8d1a0',
-                                                },
+                                                width: "80px",
                                             }}
                                             onClick={() => handleAddToCollection(wine)}
                                         >

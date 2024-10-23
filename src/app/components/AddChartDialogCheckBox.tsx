@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 import { styled } from '@mui/material/styles';
 
-// Create a styled component for the FormControl
 const StyledFormControl = styled(FormControl)({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
 });
 
-// Create a styled component for the RadioGroup
 const StyledRadioGroup = styled(RadioGroup)({
-    marginLeft: '16px', // Add some space between the label and the radio buttons
+    marginLeft: '16px',
 });
 
 export default function AddChartDialogCheckBox() {

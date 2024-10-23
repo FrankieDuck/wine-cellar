@@ -20,6 +20,55 @@ interface AddWineDialogProps {
     setSelectedEditWine: (wine: WineDataMax | null) => void;
 }
 
+interface FieldConfig {
+    name: keyof WineDataMax;
+    label: string;
+    select?: boolean;
+    options?: string[];
+    type?: string;
+    required?: boolean;
+    helperText?: string;
+};
+
+const fields: FieldConfig[] = [
+    { name: 'Title', label: 'Title', required: true },
+    { name: 'Description', label: 'Description' },
+    { name: 'Price', label: 'Price' },
+    { name: 'Capacity', label: 'Capacity' },
+    { name: 'Grape', label: 'Grape', required: true },
+    { name: 'SecondaryGrapeVarieties', label: 'Secondary Grape Varieties' },
+    { name: 'Closure', label: 'Closure', select: true, options: ['Cork', 'Screwcap'] },
+    { name: 'Country', label: 'Country', required: true },
+    { name: 'Units', label: 'Units', type: 'number' },
+    { name: 'Quantity', label: 'Quantity', type: 'number' },
+    { name: 'Characteristics', label: 'Characteristics' },
+    { name: 'PerBottleCaseEach', label: 'Per Bottle / Case / Each' },
+    { name: 'Type', label: 'Type', select: true, required: true, options: ['Red', 'White', 'Rosé'], helperText: 'Please select your type' },
+    { name: 'ABV', label: 'ABV', required: true },
+    { name: 'Style', label: 'Style' },
+    { name: 'Vintage', label: 'Vintage', type: 'number', required: true }
+];
+
+const initialFormValues = {
+    Title: "",
+    Description: "",
+    Price: "",
+    Capacity: "75CL",
+    Grape: "",
+    SecondaryGrapeVarieties: "",
+    Closure: "",
+    Country: "",
+    Units: 10,
+    Quantity: 1,
+    Characteristics: "",
+    PerBottleCaseEach: "Per Bottle",
+    Type: "",
+    ABV: "",
+    Style: "",
+    Vintage: 2000,
+    _id: "",
+};
+
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
         children: React.ReactElement<any, any>;
@@ -29,27 +78,10 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
 export default function AddWineDialog({ fetchWines, selectedEditWine, setSelectedEditWine }: AddWineDialogProps) {
     const [open, setOpen] = useState(false);
-    const [values, setValues] = useState({
-        Title: "",
-        Description: "",
-        Price: "",
-        Capacity: "75CL",
-        Grape: "",
-        SecondaryGrapeVarieties: "",
-        Closure: "",
-        Country: "",
-        Units: 10,
-        Quantity: 1,
-        Characteristics: "",
-        PerBottleCaseEach: "Per Bottle",
-        Type: "",
-        ABV: "",
-        Style: "",
-        Vintage: 2000,
-        _id: "",
-    });
+    const [values, setValues] = useState(initialFormValues);
 
     useEffect(() => {
         if (selectedEditWine) {
@@ -71,7 +103,7 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
         setSelectedEditWine(null);
     };
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setValues((prevValues) => ({
             ...prevValues,
@@ -110,38 +142,13 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
     };
 
     const resetForm = () => {
-        setValues({
-            Title: "",
-            Description: "",
-            Price: "",
-            Capacity: "75CL",
-            Grape: "",
-            SecondaryGrapeVarieties: "",
-            Closure: "",
-            Country: "",
-            Units: 10,
-            Quantity: 1,
-            Characteristics: "",
-            PerBottleCaseEach: "Per Bottle",
-            Type: "",
-            ABV: "",
-            Style: "",
-            Vintage: 0,
-            _id: "",
-        });
+        setValues(initialFormValues);
     };
-
 
     return (
         <>
-            <Button onClick={handleClickOpen} variant="contained"
-                startIcon={<AddIcon sx={{ fontSize: '20px' }} />}
-                sx={{
-                    display: "flex", gap: 1, backgroundColor: '#F9e8c0', height: "55px", width: '160px', color: "black", '&:hover': {
-                        backgroundColor: '#e8d1a0',
-                    },
-
-                }}>
+            <Button onClick={handleClickOpen} variant="white"
+                startIcon={<AddIcon sx={{ fontSize: '20px' }} />} >
                 ADD WINE
             </Button>
             <Dialog
@@ -157,200 +164,27 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
                         Use the form below to add a wine to your collection.
                     </DialogContentText>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Title"
-                                label="Title"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Title}
-                                onChange={handleChange}
-                                margin="dense"
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Description"
-                                label="Description"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Description}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Price"
-                                label="Price"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Price}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Capacity"
-                                label="Capacity"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Capacity}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Grape"
-                                label="Grape"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Grape}
-                                onChange={handleChange}
-                                margin="dense"
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="SecondaryGrapeVarieties"
-                                label="Secondary Grape Varieties"
-                                fullWidth
-                                variant="outlined"
-                                value={values.SecondaryGrapeVarieties}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Closure"
-                                label="Closure"
-                                fullWidth
-                                select
-                                variant="outlined"
-                                value={values.Closure}
-                                onChange={handleChange}
-                                margin="dense"
-                            >
-                                <MenuItem value="Cork">Cork</MenuItem>
-                                <MenuItem value="Screwcap">Screwcap</MenuItem>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Country"
-                                label="Country"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Country}
-                                onChange={handleChange}
-                                margin="dense"
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Units"
-                                label="Units"
-                                type="number"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Units}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Quantity"
-                                label="Quantity"
-                                type="number"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Quantity}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Characteristics"
-                                label="Characteristics"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Characteristics}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="perBottleCaseEach"
-                                label="Per Bottle / Case / Each"
-                                fullWidth
-                                variant="outlined"
-                                value={values.PerBottleCaseEach}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Type"
-                                label="Type"
-                                fullWidth
-                                select
-                                variant="outlined"
-                                value={values.Type}
-                                onChange={handleChange}
-                                margin="dense"
-                                required
-                                helperText="Please select your type"
-                            >
-                                <MenuItem value="Red">Red</MenuItem>
-                                <MenuItem value="White">White</MenuItem>
-                                <MenuItem value="Rosé">Rosé</MenuItem>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="ABV"
-                                label="ABV"
-                                fullWidth
-                                variant="outlined"
-                                value={values.ABV}
-                                onChange={handleChange}
-                                margin="dense"
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Style"
-                                label="Style"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Style}
-                                onChange={handleChange}
-                                margin="dense"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="Vintage"
-                                label="Vintage"
-                                fullWidth
-                                variant="outlined"
-                                value={values.Vintage}
-                                onChange={handleChange}
-                                margin="dense"
-                                required
-                            />
-                        </Grid>
+                        {fields.map(({ name, label, select, options, type, required, helperText }) => (
+                            <Grid item xs={12} key={name}>
+                                <TextField
+                                    name={name}
+                                    label={label}
+                                    fullWidth
+                                    variant="outlined"
+                                    value={values[name]}
+                                    onChange={handleChange}
+                                    margin="dense"
+                                    required={required}
+                                    select={select}
+                                    type={type}
+                                    helperText={helperText}
+                                >
+                                    {select && options?.map(option => (
+                                        <MenuItem key={option} value={option}>{option}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                        ))}
                     </Grid>
 
                 </DialogContent>

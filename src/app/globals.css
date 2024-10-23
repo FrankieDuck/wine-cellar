@@ -76,7 +76,6 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: var(--font-sans);
-  /* Apply the font to html and body */
 }
 
 body {
@@ -135,6 +134,32 @@ a {
   text-align: center;
   width: 80%
 }
+
+.home-titles-text {
+  color: #F9e8c0;
+  letter-spacing: 0.25em;
+}
+
+.home-paper {
+  background-color: #310206;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.chart-preview-container {
+  margin-top: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  background-color: #52020A;
+}
+
+.add-chart-dialog {
+  display: "flex";
+  width: '100%';
+  align-items: 'center'
+}
+
 
 .collections-landing-container {
   padding-top: 50px;

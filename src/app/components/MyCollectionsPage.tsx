@@ -108,25 +108,15 @@ export const MyCollectionsPage = () => {
                                         <Box display="flex" flexDirection="column" alignItems="center">
                                             <Button
                                                 variant="contained"
-                                                color="primary"
+                                                variant="white"
                                                 startIcon={<EditIcon />}
-                                                sx={{
-                                                    marginBottom: 1, width: "110px", backgroundColor: '#F9e8c0', color: "black", '&:hover': {
-                                                        backgroundColor: '#e8d1a0',
-                                                    },
-                                                }}
                                                 onClick={() => handleEdit(wine)}
                                             >
                                                 Edit
                                             </Button>
                                             <Button
                                                 variant="contained"
-                                                color="secondary"
-                                                sx={{
-                                                    backgroundColor: '#a82f3b', color: "black", '&:hover': {
-                                                        backgroundColor: '#7B0323',
-                                                    },
-                                                }}
+                                                variant="red"
                                                 startIcon={<DeleteIcon />}
                                                 onClick={() => handleDelete(wine._id)}
                                             >
