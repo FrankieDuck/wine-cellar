@@ -171,7 +171,7 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
                                     label={label}
                                     fullWidth
                                     variant="outlined"
-                                    value={values[name]}
+                                    value={values[name as keyof typeof values] ?? ''}
                                     onChange={handleChange}
                                     margin="dense"
                                     required={required}

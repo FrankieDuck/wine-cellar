@@ -120,7 +120,7 @@ const ExampleDashboardPage = () => {
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", width: "100%", pt: 4 }}>
                     <Box sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
-                        <ExampleWinePieCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} byAge={ageData} />
+                        <ExampleWinePieCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} />
                     </Box>
                     <Box sx={{ width: "50%", display: "flex", justifyContent: "center" }}>
                         <ExampleGuageCharts title={exampleSelection} byGrapes={grapeData} />

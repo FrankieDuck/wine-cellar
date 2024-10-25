@@ -10,8 +10,8 @@ import { CustomDivider } from './CustomDivider';
 import { WineDataMax } from '../types';
 import AddChartDialog from './AddChartDialog';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { BarChart } from '@mui/x-charts/BarChart'; // Import BarChart
-import { Gauge } from '@mui/x-charts/Gauge'; // Import Gauge
+import { BarChart } from '@mui/x-charts/BarChart';
+import { Gauge } from '@mui/x-charts/Gauge';
 import Typography from '@mui/material/Typography';
 
 interface ChartData {
