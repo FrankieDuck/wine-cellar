@@ -105,11 +105,11 @@ export default function LandingPage() {
                             />
                         </Paper>
                     </Box>
-                    <Box className="add-chart-dialog">
+                    <>
                         <CustomDivider />
                         <BottomBanner />
                         <CustomDivider />
-                    </Box>
+                    </>
                 </Box>
             </Box >
         </>

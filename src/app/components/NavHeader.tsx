@@ -50,17 +50,16 @@ const NavHeader = ({ title }: NavHeaderProps) => {
                     alignItems: "center",
                     flexDirection: "row",
                     width: '100%',
-                    height: "100px",
-                    paddingTop: "20px"
+                    height: 'auto',
+                    pt: 2,
                 }}
             >
-
                 <Box
                     sx={{
                         position: 'absolute',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        paddingTop: "40px"
+                        pt: 5,
                     }}
                 >
                     <Typography variant="h1" sx={{ color: '#F9e8c0', letterSpacing: "0.25em" }}>

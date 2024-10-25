@@ -38,7 +38,7 @@ export default function ExampleWinePieCharts({ title, byGrapes, byCountry }: Exa
     const colors = generateColors(byGrapes.length);
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "100px" }}>
+        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 4 }}>
             <Box>
                 <Typography variant='h5' sx={{ color: "#F9e8c0" }}>{title}: Current Stock - By Grape</Typography>
                 <PieChart

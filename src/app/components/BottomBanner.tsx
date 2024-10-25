@@ -12,7 +12,6 @@ export const BottomBanner = () => {
             flexDirection: "row",
             width: "400px",
             justifyContent: "space-evenly",
-            marginTop: 5,
             color: "#F9e8c0",
         }}>
             <XIcon fontSize='large' />

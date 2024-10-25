@@ -161,6 +161,32 @@ a {
 }
 
 
+.header-title {
+  color: #F9e8c0;
+  text-align: center;
+}
+
+.button {
+  height: 55px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+
+}
+
+.button-red {
+  background-color: #FF0000;
+}
+
+.button-white {
+  background-color: #FFFFFF;
+}
+
+.button-rose {
+  background-color: #FF007F;
+}
+
+
 .collections-landing-container {
   padding-top: 50px;
   padding: 30px;

@@ -88,46 +88,37 @@ const ExampleDashboardPage = () => {
 
 
     return (
-        <Box sx={{ backgroundColor: "#52020A" }} >
+        <Box sx={{ backgroundColor: "#52020A" }}>
             <NavHeader title="DASHBOARDS" />
-            <Box sx={{ backgroundColor: "#300106" }} >
+            <Box sx={{ backgroundColor: "#300106", padding: "20px" }}>
                 <CustomDivider width="100%" />
-                <Box sx={{ padding: "44px", display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center", gap: "30px" }} >
-                    <Typography variant="h5" color="#F9e8c0">
+                <Box sx={{ p: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                    <Typography variant="h5" color="#F9e8c0" textAlign="center">
                         Keep track of your stock with a dynamic table that provides a comprehensive view of all available wines.
                         Use it to monitor your entire inventory and easily pre-order your favorite selections.
                     </Typography>
-                    <Typography variant="h5" color="#F9e8c0">
-                        Use the pre-set buttons below to see different example of charts based on grape variety.
+                    <Typography variant="h5" color="#F9e8c0" textAlign="center">
+                        Use the pre-set buttons below to see different examples of charts based on grape variety.
                     </Typography>
-                    <Box display={'flex'} gap={10}>
-                        <Button variant="red" sx={{
-                            height: "55px",
-                            width: "300px"
-                        }} onClick={() => setExampleSelection("Red")}>Red</Button>
-                        <Button variant="white" sx={{
-                            height: "55px",
-                            width: "300px"
-                        }} onClick={() => setExampleSelection("White")}>White</Button>
-                        <Button variant="rose" sx={{
-                            height: "55px",
-                            width: "300px"
-                        }} onClick={() => setExampleSelection("Rosé")}>Rosé</Button>
+                    <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={2} justifyContent="center">
+                        <Button variant="red" onClick={() => setExampleSelection("Red")}>Red</Button>
+                        <Button variant="white" onClick={() => setExampleSelection("White")}>White</Button>
+                        <Button variant="rose" onClick={() => setExampleSelection("Rosé")}>Rosé</Button>
                     </Box>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
                     <ExampleWineBarCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} byAge={ageData} />
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "row", width: "100%", pt: 4 }}>
-                    <Box sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
+                <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "100%", pt: 4 }}>
+                    <Box sx={{ width: { xs: "100%", md: "50%" }, display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
                         <ExampleWinePieCharts title={exampleSelection} byGrapes={grapeData} byCountry={countryData} />
                     </Box>
-                    <Box sx={{ width: "50%", display: "flex", justifyContent: "center" }}>
+                    <Box sx={{ width: { xs: "100%", md: "50%" }, display: "flex", justifyContent: "center" }}>
                         <ExampleGuageCharts title={exampleSelection} byGrapes={grapeData} />
                     </Box>
                 </Box>
             </Box>
-        </Box >
+        </Box>
     );
 };
 
