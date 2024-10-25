@@ -105,7 +105,7 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
                                 <TableCell>{wine.Price}</TableCell>
                                 <TableCell>{wine.Description}</TableCell>
                                 <TableCell>{wine.Capacity}</TableCell>
-                                <TableCell>{wine["Per bottle / case / each"]}</TableCell>
+                                <TableCell>{wine.PerBottleCaseEach}</TableCell>
                                 <TableCell>{wine.Type}</TableCell>
                                 <TableCell>{wine.Grape}</TableCell>
                                 <TableCell>{wine.Closure}</TableCell>
