@@ -74,9 +74,11 @@ export default function LandingPage() {
                             Use it to monitor your entire inventory and easily pre-order your favorite selections.
                         </Typography>
                         <Image src="/images/collectionsTable.png"
-                            width={800}
-                            height={500}
-                            sizes="(max-width: 768px) 100vw, 800px"
+                            width={1200}
+                            height={1500}
+                            quality={100}
+
+                            layout="responsive"
                             style={{
                                 width: '100%',
                                 height: 'auto',
