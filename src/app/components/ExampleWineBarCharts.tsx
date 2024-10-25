@@ -123,45 +123,6 @@ export default function ExampleWineBarCharts({ title, byGrapes, byCountry, byAge
                         {...chartSettingCountry}
                     />
                 </Box>
-
-                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1, marginLeft: 2 }}>
-                    <Typography variant='h5' sx={{ color: "#F9e8c0", textAlign: "center", marginBottom: 2 }}>
-                        {title} Wines - Vintage
-                    </Typography>
-                    <BarChart
-                        dataset={byAge}
-                        yAxis={[{ scaleType: 'band', dataKey: 'age' }]}
-                        series={[{ dataKey: 'count' }]}
-                        layout="horizontal"
-                        grid={{ vertical: true }}
-                        margin={{ left: 100 }}
-                        sx={{
-                            "& .MuiChartsAxis-left .MuiChartsAxis-tickLabel": {
-                                strokeWidth: "0.4",
-                                fill: "#ded5c3"
-                            },
-                            "& .MuiChartsAxis-bottom .MuiChartsAxis-tickLabel": {
-                                strokeWidth: "0.5",
-                                fill: "#ded5c3"
-                            },
-                            "& .MuiChartsAxis-bottom .MuiChartsAxis-line": {
-                                stroke: "#ded5c3",
-                                strokeWidth: 0.4
-                            },
-                            "& .MuiChartsAxis-left .MuiChartsAxis-line": {
-                                stroke: "#ded5c3",
-                                strokeWidth: 0.4
-                            },
-                            "& .MuiChartsAxis-root .MuiChartsAxis-label": {
-                                stroke: "#ded5c3",
-                                strokeWidth: 0.7
-                            }
-                        }}
-                        {...chartSettingAge}
-                    />
-                </Box>
-
-
             </Box>
         </>
     );
