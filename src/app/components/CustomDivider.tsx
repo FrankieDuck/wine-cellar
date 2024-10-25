@@ -1,6 +1,4 @@
 
-
-
 export const CustomDivider = ({ width = '80%' }) => {
     return (
         <div style={{

@@ -95,8 +95,8 @@ export default function LandingPage() {
                     <Box className="text-container">
                         <Paper className="home-paper">
                             <Typography variant="h5" fontStyle={'italic'} color={"#F9e8c0"} >
-                                "This app is a game-changer for any wine enthusiast. It not only helps me effortlessly manage my collection but also lets me visualize trends in my wines, whether it's tracking the aging process or analyzing the diversity of grape varieties.
-                                It’s like having a personal assistant that keeps my cellar perfectly organized and up-to-date." - Luan Yitargio
+                                This app is a game-changer for any wine enthusiast. It not only helps me effortlessly manage my collection but also lets me visualize trends in my wines, whether its tracking the aging process or analyzing the diversity of grape varieties.
+                                Its like having a personal assistant that keeps my cellar perfectly organized and up-to-date. - Luan Yitargio
                             </Typography>
                             <Image src="/images/signature.png"
                                 width={500}

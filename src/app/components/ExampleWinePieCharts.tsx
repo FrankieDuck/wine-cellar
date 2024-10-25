@@ -25,7 +25,7 @@ export default function ExampleWinePieCharts({ title, byGrapes, byCountry }: Exa
 
     const grapeData = byGrapes?.map((grape, index) => ({
         id: index,
-        value: grape.variant, //count
+        value: grape.variant,
         label: grape.variety,
     }));
 

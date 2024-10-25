@@ -105,9 +105,8 @@ export const MyCollectionsPage = () => {
                                     <TableCell>{wine.Style}</TableCell>
                                     <TableCell>{wine.Vintage}</TableCell>
                                     <TableCell>
-                                        <Box display="flex" flexDirection="column" alignItems="center">
+                                        <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
                                             <Button
-                                                variant="contained"
                                                 variant="white"
                                                 startIcon={<EditIcon />}
                                                 onClick={() => handleEdit(wine)}
@@ -115,7 +114,6 @@ export const MyCollectionsPage = () => {
                                                 Edit
                                             </Button>
                                             <Button
-                                                variant="contained"
                                                 variant="red"
                                                 startIcon={<DeleteIcon />}
                                                 onClick={() => handleDelete(wine._id)}

@@ -63,7 +63,7 @@ const ExampleDashboardPage = () => {
         setGrapeCounts(countByGrape(wines));
         setCountryCounts(countByCountry(wines));
         setAgeCounts(countByAge(wines));
-    }, [wines]);
+    }, [wines, ageCounts]);
 
     const grapeData = useMemo(() => {
         return Object.entries(grapeCounts).map(([variety, variant]) => ({
