@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { WineDataMax } from '../types';
 import AddIcon from '@mui/icons-material/Add';
@@ -41,9 +41,10 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
         setSearchQuery(event.target.value);
     };
 
-    const filteredWines = wines.filter(wine =>
-        wine.Title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredWines = useMemo(() => {
+        return wines.filter(wine => wine.Title.toLowerCase().includes(searchQuery.toLowerCase()));
+    }, [wines, searchQuery]);
+
 
     const handleAddToCollection = async (wine: WineDataMax) => {
         try {
