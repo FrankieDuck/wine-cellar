@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Box, Typography, IconButton, Tooltip, Menu, MenuItem, Divider } from '@mui/material';
 
 interface NavHeaderProps {
-    title: string
+    title?: string
 }
 
 const NavHeader = ({ title }: NavHeaderProps) => {

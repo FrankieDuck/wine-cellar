@@ -90,8 +90,8 @@ const ExampleDashboardPage = () => {
     return (
         <Box sx={{ backgroundColor: "#52020A" }}>
             <NavHeader title="DASHBOARDS" />
+             <CustomDivider width="100%" />
             <Box sx={{ backgroundColor: "#300106", padding: "20px" }}>
-                <CustomDivider width="100%" />
                 <Box sx={{ p: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
                     <Typography variant="h5" color="#F9e8c0" textAlign="center">
                         Keep track of your stock with a dynamic table that provides a comprehensive view of all available wines.

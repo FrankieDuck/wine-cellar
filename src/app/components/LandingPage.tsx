@@ -17,9 +17,12 @@ export default function LandingPage() {
         <>
             <Box className="top-section">
                 <Box className="image-overlay">
-                    <NavHeader title="WINE CELLAR" />
+                    <NavHeader />
+                    <Typography variant="h1" sx={{ color: "#F9e8c0", letterSpacing: "0.25em", display: "flex", justifyContent:"center" }}>
+                            WINE CELLAR
+                        </Typography>
                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "100px" }}>
-
+     
                         <Typography variant="h2" sx={{ color: "#F9e8c0", letterSpacing: "0.25em" }}>
                             TAKE WINE COLLECTING
                         </Typography>
