@@ -116,7 +116,7 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
             if (values._id) {
                 // Updating existing wine
                 const { _id, ...updateData } = values;
-                const response = await axios.patch(`http://localhost:5000/personal_collection/${values._id}`, updateData);
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_CLOUD_API_URL}/${values._id}`, updateData);
                 if (response.status === 200) {
                     console.log('Wine updated successfully');
                 } else {
@@ -125,7 +125,7 @@ export default function AddWineDialog({ fetchWines, selectedEditWine, setSelecte
             } else {
                 // Adding new wine
                 const newWine = { ...values, _id: uuidv4() };
-                const response = await axios.post('http://localhost:5000/personal_collection', newWine);
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_CLOUD_API_URL}/personal_collection`, newWine);
                 if (response.status === 201) {
                     console.log('Wine added successfully');
                 } else {
