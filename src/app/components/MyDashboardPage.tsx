@@ -27,7 +27,7 @@ export const MyDashboardPage = () => {
 
     const fetchWines = async () => {
         try {
-            const response = await axios.get('https://wine-cellar-backend.ew.r.appspot.com/personal_collection');
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_CLOUD_API_URL}/personal_collection`);
             setWines(response.data);
         } catch (error) {
             console.error("Could not fetch wines. Please try again later.");

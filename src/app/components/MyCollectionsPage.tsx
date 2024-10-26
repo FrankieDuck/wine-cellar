@@ -19,7 +19,7 @@ export const MyCollectionsPage = () => {
 
     const fetchWines = async () => {
         try {
-            const response = await axios.get(`${process.env.CLOUD_API_URL}/personal_collection`);
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_CLOUD_API_URL}/personal_collection`);
             setWines(response.data);
         } catch (error) {
             console.error("Could not fetch wines. Please try again later.");
@@ -36,7 +36,7 @@ export const MyCollectionsPage = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await axios.delete(`${process.env.CLOUD_API_URL}/personal_collection/${id}`);
+            await axios.delete(`${process.env.NEXT_PUBLIC_CLOUD_API_URL}/personal_collection/${id}`);
             fetchWines();
         } catch (error) {
             console.error("Error deleting wine:", error);
