@@ -3,8 +3,8 @@ require('dotenv').config({ path: '.env.local' });
 
 let dbConnection
 
-const uri = `mongodb+srv://${process.env.MONGO_EMAIL}:${process.env.MONGO_KEY}.gsxle.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-const dbName = 'wine';
+const uri = process.env.MONGODB_URI;
+const dbName = process.env.DB_NAME;
 
 const connectToDb = async (cb) => {
     try {
