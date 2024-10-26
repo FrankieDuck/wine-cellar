@@ -22,11 +22,11 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
-
+    
     useEffect(() => {
         const fetchWines = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/wines/type/Rosé?p=${currentPage}`);
+                const response = await axios.get(`https://wine-cellar-backend.ew.r.appspot.com/wines/type/Rosé?p=${currentPage}`);
                 const maxWines: WineDataMax[] = response.data.filter((wine: any) => wine.Grape !== undefined);
                 setWines(maxWines);
             } catch (error) {
@@ -48,7 +48,7 @@ const ExampleCollectionsPage: React.FC<ExampleCollectionsPageProps> = ({ type })
 
     const handleAddToCollection = async (wine: WineDataMax) => {
         try {
-            await axios.post('http://localhost:5000/personal_collection', wine);
+            await axios.post(`${process.env.CLOUD_API_URL}/personal_collection`, wine);
             setAlertMessage('Wine successfully added to your collection.');
             setAlertSeverity('success');
             setAlertOpen(true);

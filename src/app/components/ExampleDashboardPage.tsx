@@ -19,7 +19,7 @@ const ExampleDashboardPage = () => {
     useEffect(() => {
         const fetchWines = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/wines/type/${exampleSelection}?p=0`);
+                const response = await axios.get(`${process.env.CLOUD_API_URL}/wines/type/${exampleSelection}?p=0`);
                 setWines(response.data);
             } catch (error) {
                 console.error("Could not fetch wines. Please try again later.");
